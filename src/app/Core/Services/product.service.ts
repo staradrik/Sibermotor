@@ -1,8 +1,8 @@
 export interface productService{
-  addProduct(barcode: string):void;
-  deleteProduct(barcode: string):void;
-  getProducts():product[];
-  getProduct(barcode: string):product;
+  addProduct(barcode: string):Promise<string>;
+  deleteProduct(barcode: string):Promise<string>;
+  getProducts():Promise<product[]>;
+  getProduct(barcode: string):Promise<product>;
 }
 export interface product{
   name: string;

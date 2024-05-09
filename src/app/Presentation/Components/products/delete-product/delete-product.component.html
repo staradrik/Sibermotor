@@ -1,5 +1,9 @@
-<p-floatLabel>
-  <input pInputText id="username" [(ngModel)]="idProduct" />
-  <label for="username">Id producto</label>
-</p-floatLabel>
-<p-button label="Eliminar" severity="danger" />
+<p-toast />
+<div style="display: flex; flex-direction: column; align-items: center;">
+  <label for="productCode">Código del producto:</label>
+  <p-floatLabel style="padding: 50px;">
+    <input pInputText id="username" [(ngModel)]="productCode" />
+    <label for="username">Id producto</label>
+  </p-floatLabel>
+  <p-button label="Eliminar" severity="danger" (onClick)="deleteProduct()" />
+</div>

@@ -8,16 +8,16 @@ import { ProductApiService } from '../Api/product-api.service';
 export class ProductRepositoryService implements productService{
 
   constructor(private productApiService: ProductApiService) { }
-  addProduct(barcode: string): void {
-    this.productApiService.addProduct(barcode);
+  addProduct(barcode: string): Promise<string> {
+    return this.productApiService.addProduct(barcode);
   }
-  deleteProduct(barcode: string): void {
-    this.productApiService.deleteProduct(barcode);
+  deleteProduct(barcode: string): Promise<string> {
+    return this.productApiService.deleteProduct(barcode);
   }
-  getProducts(): product[] {
+  getProducts(): Promise<product[]> {
     return this.productApiService.getProducts();
   }
-  getProduct(barcode: string): product {
+  getProduct(barcode: string): Promise<product> {
     return this.productApiService.getProduct(barcode);
   }
 }
