@@ -1,10 +1,10 @@
 export interface productService{
-  addProduct(barcode: string):Promise<string>;
+  addProduct(product: Product):Promise<string>;
   deleteProduct(barcode: string):Promise<string>;
-  getProducts():Promise<product[]>;
-  getProduct(barcode: string):Promise<product>;
+  getProducts():Promise<Product[]>;
+  getProduct(barcode: string):Promise<Product>;
 }
-export interface product{
+export interface Product{
   name: string;
   description: string;
   stock: number;

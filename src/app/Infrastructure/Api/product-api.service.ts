@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { product, productService } from '../../Core/Services/product.service';
+import { Product, productService } from '../../Core/Services/product.service';
 import { MongoConnectionApiService } from './mongo-connection-api.service';
 
 @Injectable({
@@ -8,16 +8,16 @@ import { MongoConnectionApiService } from './mongo-connection-api.service';
 export class ProductApiService implements productService{
 
   constructor(private mongoConnectionApiService: MongoConnectionApiService) { }
-  addProduct(barcode: string): Promise<string> {
-    throw new Error('Method not implemented.');
+  addProduct(product: Product): Promise<string> {
+    return this.mongoConnectionApiService.addProduct(product);
   }
   deleteProduct(barcode: string): Promise<string> {
     return this.mongoConnectionApiService.deleteProduct(barcode);
   }
-  getProducts(): Promise<product[]> {
+  getProducts(): Promise<Product[]> {
     throw new Error('Method not implemented.');
   }
-  getProduct(barcode: string): Promise<product> {
+  getProduct(barcode: string): Promise<Product> {
     throw new Error('Method not implemented.');
   }
 }
