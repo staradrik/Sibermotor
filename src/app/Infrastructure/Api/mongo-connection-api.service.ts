@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MongoConnectionService } from '../../Core/Services/mongoConnection';
 import * as Realm from "realm-web";
 import { Role, User } from '../../Core/Services/auth.service';
-import { product } from '../../Core/Services/product.service';
+import { Product } from '../../Core/Services/product.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,9 +24,6 @@ export class MongoConnectionApiService implements MongoConnectionService {
     return await this.app.logIn(credentials);
   }
   async login(user: string, password: string) {
-    // if (!this.user)
-    //     this.user = await this.initialiseMongoConnection();
-    // return await this.user.functions.GetMovies();
     await this.initialiseMongoConnection();
     const mongo = this.app.currentUser?.mongoClient(this.serviceName);
     const collection = mongo?.db(this.dbName).collection(this.collUser);
@@ -47,8 +44,34 @@ export class MongoConnectionApiService implements MongoConnectionService {
     }
     // return { result: findResult };
   }
-  async addProduct(barcode: string): Promise<string> {
-    throw new Error('Method not implemented.');
+  async addProduct(product: Product): Promise<string> {
+    this.initialiseMongoConnection();
+    const mongo = this.app.currentUser?.mongoClient(this.serviceName);
+    const collection = mongo?.db(this.dbName).collection(this.collProduct);
+    try {
+      // Execute a deleteOne in MongoDB
+      await collection!.findOne({idProduct: product.barcode,}).then(async (dataf) => {
+        if (dataf != null)
+          throw new Error('El producto ya existe');
+
+        await collection!.insertOne(
+          {
+            idProduct: product.barcode,
+            name: product.name,
+            description: product.description,
+            stock: product.stock,
+            price: product.price
+          },
+        ).then(async (data) => {
+          if (data == null)
+            throw new Error('El producto no se ha podido agregar');
+        });
+      });
+    } catch(err: any) {
+      // console.log(err.message);
+      return "Error: " + err.message;
+    }
+    return "Operacion exitosa";
   }
   async deleteProduct(barcode: string): Promise<string> {
     this.initialiseMongoConnection();
@@ -75,10 +98,10 @@ export class MongoConnectionApiService implements MongoConnectionService {
     }
     return "Operacion exitosa";
   }
-  getProducts(): Promise<product[]> {
+  getProducts(): Promise<Product[]> {
     throw new Error('Method not implemented.');
   }
-  getProduct(barcode: string): Promise<product> {
+  getProduct(barcode: string): Promise<Product> {
     throw new Error('Method not implemented.');
   }
 }

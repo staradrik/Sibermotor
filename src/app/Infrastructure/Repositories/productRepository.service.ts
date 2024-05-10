@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { product, productService } from '../../Core/Services/product.service';
+import { Product, productService } from '../../Core/Services/product.service';
 import { ProductApiService } from '../Api/product-api.service';
 
 @Injectable({
@@ -8,16 +8,16 @@ import { ProductApiService } from '../Api/product-api.service';
 export class ProductRepositoryService implements productService{
 
   constructor(private productApiService: ProductApiService) { }
-  addProduct(barcode: string): Promise<string> {
-    return this.productApiService.addProduct(barcode);
+  addProduct(product: Product): Promise<string> {
+    return this.productApiService.addProduct(product);
   }
   deleteProduct(barcode: string): Promise<string> {
     return this.productApiService.deleteProduct(barcode);
   }
-  getProducts(): Promise<product[]> {
+  getProducts(): Promise<Product[]> {
     return this.productApiService.getProducts();
   }
-  getProduct(barcode: string): Promise<product> {
+  getProduct(barcode: string): Promise<Product> {
     return this.productApiService.getProduct(barcode);
   }
 }

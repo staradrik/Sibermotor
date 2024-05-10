@@ -1,0 +1,25 @@
+<p-toast />
+<div style="display: flex; flex-direction: column; align-items: center;">
+  <label for="productCode">Agregar producto:</label>
+  <p-floatLabel style="padding: 20px;">
+    <input pInputText id="barcode" [(ngModel)]="product.barcode" />
+    <label for="username">Codigo de barras producto</label>
+  </p-floatLabel>
+  <p-floatLabel style="padding: 20px;">
+    <input pInputText id="name" [(ngModel)]="product.name" />
+    <label for="username">Nombre del producto</label>
+  </p-floatLabel>
+  <p-floatLabel style="padding: 20px;">
+    <input pInputText id="description" [(ngModel)]="product.description" />
+    <label for="username">Descripción del producto</label>
+  </p-floatLabel>
+  <p-floatLabel style="padding: 20px;">
+    <p-inputNumber inputId="price" [(ngModel)]="product.price" />
+    <label for="username">Precio del producto</label>
+  </p-floatLabel>
+  <p-floatLabel style="padding: 20px;">
+    <p-inputNumber inputId="stock" [(ngModel)]="product.stock" />
+    <label for="username">Existencias del producto</label>
+  </p-floatLabel>
+  <p-button label="Agregar" (onClick)="addProduct()" />
+</div>
