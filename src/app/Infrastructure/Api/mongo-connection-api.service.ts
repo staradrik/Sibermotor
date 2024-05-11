@@ -3,6 +3,7 @@ import { MongoConnectionService } from '../../Core/Services/mongoConnection';
 import * as Realm from "realm-web";
 import { Role, User } from '../../Core/Services/auth.service';
 import { Product } from '../../Core/Services/product.service';
+import { ProductDb } from '../../Core/Models/productDb.model';
 
 @Injectable({
   providedIn: 'root'
@@ -98,10 +99,65 @@ export class MongoConnectionApiService implements MongoConnectionService {
     }
     return "Operacion exitosa";
   }
-  getProducts(): Promise<Product[]> {
-    throw new Error('Method not implemented.');
+  async getProducts(): Promise<Product[]> {
+    var products: Product[] = []
+    this.initialiseMongoConnection();
+    const mongo = this.app.currentUser?.mongoClient(this.serviceName);
+    const collection = mongo?.db(this.dbName).collection(this.collProduct);
+    try {
+      // Execute a deleteOne in MongoDB
+      await collection!.find().then(async (data: ProductDb[]) => {
+        if (!data){
+          throw new Error('El producto no existe');
+        }
+        data.forEach((dataA:ProductDb) => {
+          let product = {
+            name: dataA.name,
+            description: dataA.description,
+            stock: dataA.stock,
+            price: dataA.price,
+            barcode: dataA.idProduct
+          }
+          products.push(product);
+        });
+
+      });
+    } catch(err: any) {
+      throw new Error(err.message);
+    }
+    return products;
   }
-  getProduct(barcode: string): Promise<Product> {
-    throw new Error('Method not implemented.');
+  async getProduct(barcode: string): Promise<Product> {
+    var product: Product = {
+      name: '',
+      description: '',
+      stock: 0,
+      price: 0,
+      barcode: ''
+    }
+    this.initialiseMongoConnection();
+    const mongo = this.app.currentUser?.mongoClient(this.serviceName);
+    const collection = mongo?.db(this.dbName).collection(this.collProduct);
+    try {
+      // Execute a deleteOne in MongoDB
+      await collection!.findOne({idProduct: barcode,}).then(async (dataf) => {
+
+        if (!dataf){
+          throw new Error('El producto no existe');
+        }
+        product = {
+          name: dataf.name,
+          description: dataf.description,
+          stock: dataf.stock,
+          price: dataf.price,
+          barcode: dataf.idProduct
+        }
+      });
+    } catch(err: any) {
+      // console.log(err.message);
+      product.description = "Error: " + err.message;
+      return product;
+    }
+    return product;
   }
 }

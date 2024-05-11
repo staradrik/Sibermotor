@@ -1,1 +1,31 @@
-<p>barcode works!</p>
+<p-toast />
+<div class="container">
+  <h1> Agregar producto </h1>
+
+  <!-- ngx-scanner-qrcode -->
+  <ngx-scanner-qrcode #action="scanner" [config]="config" (event)="onEvent($event, action)"></ngx-scanner-qrcode>
+
+  <div style="display: flex; flex-direction: column; align-items: center; margin-top: 10px;">
+    <!-- start/stop -->
+    <div style="display: flex; flex-direction: row;">
+      <div style="margin-right: 10px;">
+        <p-button
+        label="Escánear"
+        icon="pi pi-barcode"
+        badgeClass="p-badge-contrast"
+        outlined="true" (click)="handle(action, action.isStart ? 'stop' : 'start')"/>
+      </div>
+
+
+      <!-- for select files -->
+      <input #file type="file" pInputText (change)="onSelects(file.files)" [multiple]="'multiple'" [accept]="'.jpg, .png, .gif, .jpeg'"/>
+    </div>
+
+    <div style="padding: 10px;"></div>
+    <p-button icon="pi pi-arrow-right" iconPos="right" (click)="VerIn()" label="Ver producto" />
+
+    <div *ngFor="let item of qrCodeResult">
+      <ngx-scanner-qrcode #actionFile="scanner" [src]="item.url" [config]="config" (event)="onEvent($event)"></ngx-scanner-qrcode>
+    </div>
+  </div>
+</div>

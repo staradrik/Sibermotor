@@ -15,9 +15,9 @@ export class ProductApiService implements productService{
     return this.mongoConnectionApiService.deleteProduct(barcode);
   }
   getProducts(): Promise<Product[]> {
-    throw new Error('Method not implemented.');
+    return this.mongoConnectionApiService.getProducts();
   }
   getProduct(barcode: string): Promise<Product> {
-    throw new Error('Method not implemented.');
+    return this.mongoConnectionApiService.getProduct(barcode);
   }
 }
