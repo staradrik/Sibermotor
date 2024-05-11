@@ -6,6 +6,8 @@ import { MessageService} from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
+import { ProductRepositoryService } from '../../../Infrastructure/Repositories/productRepository.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-barcode',
@@ -37,9 +39,11 @@ export class BarcodeComponent implements AfterViewInit{
 
   public percentage = 80;
   public quality = 100;
-  public Product= {};
+  public Product = "";
 
-  constructor(private qrcode: NgxScannerQrcodeService, private messageService: MessageService) { }
+  constructor(private qrcode: NgxScannerQrcodeService, private messageService: MessageService,
+    private productService: ProductRepositoryService, private router: Router,
+  ) { }
 
   ngAfterViewInit(): void {
     this.action.isReady.subscribe((res: any) => {
@@ -48,20 +52,28 @@ export class BarcodeComponent implements AfterViewInit{
   }
 
   public onEvent(e: ScannerQRCodeResult[], action?: any): void {
-    this.Product = e[0];
-    console.log(e[0].value);
+    this.Product = e[0].value;
+    console.log(this.Product);
     //agregar toast
     this.messageService.add({severity:'success', summary:"Operacion exitosa", detail:"Codigo producto: " + this.Product});
   }
 
-  public VerIn(){
-    console.log(this.Product)
+  public async VerIn(){
+    // console.log(this.Product)
     //condicional para enviar a ver detalles
     if (this.Product == null){
       this.messageService.add({severity:'error', summary:"Error", detail:"No fue posible leerlo"});
       return;
     }
-    //enviar a ver detalles
+     await this.productService.getProduct(this.Product).then((data)=>{
+      if (data.description.startsWith("Error: ")){
+        this.messageService.add({severity:'error', summary:"Producto no encontrado", detail:data.description});
+        return;
+      }
+      this.messageService.add({severity:'success', summary:"Producto encontrado", detail:"Producto: " + data.name});
+      //enviar a ver detalles
+      this.router.navigate([`/product/detail/${data.barcode}`]);
+     });
 
   }
 

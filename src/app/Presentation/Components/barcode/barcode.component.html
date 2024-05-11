@@ -1,29 +1,31 @@
+<p-toast />
 <div class="container">
   <h1> Agregar producto </h1>
 
   <!-- ngx-scanner-qrcode -->
   <ngx-scanner-qrcode #action="scanner" [config]="config" (event)="onEvent($event, action)"></ngx-scanner-qrcode>
 
-  <!-- start/stop -->
-  <p-button
-    label="Escánear"
-    icon="pi pi-users"
-    badge="2"
-    badgeClass="p-badge-contrast"
-    outlined="true" (click)="handle(action, action.isStart ? 'stop' : 'start')"/>
+  <div style="display: flex; flex-direction: column; align-items: center; margin-top: 10px;">
+    <!-- start/stop -->
+    <div style="display: flex; flex-direction: row;">
+      <div style="margin-right: 10px;">
+        <p-button
+        label="Escánear"
+        icon="pi pi-barcode"
+        badgeClass="p-badge-contrast"
+        outlined="true" (click)="handle(action, action.isStart ? 'stop' : 'start')"/>
+      </div>
 
 
-  <!-- for select files -->
-  <input #file type="file" pInputText (change)="onSelects(file.files)" [multiple]="'multiple'" [accept]="'.jpg, .png, .gif, .jpeg'"/>
-  <br>
+      <!-- for select files -->
+      <input #file type="file" pInputText (change)="onSelects(file.files)" [multiple]="'multiple'" [accept]="'.jpg, .png, .gif, .jpeg'"/>
+    </div>
 
-  <button class="btn" [class.btn-info]="!action.isStart" [class.btn-warning]="action.isStart" (click)="VerIn()">
-    <img [src]="action.isStart ? 'https://cdn-icons-png.freepik.com/512/6324/6324597.png' : 'https://cdn-icons-png.freepik.com/512/6324/6324597.png'" width="30px"/>
-  </button>
-  <br>
+    <div style="padding: 10px;"></div>
+    <p-button icon="pi pi-arrow-right" iconPos="right" (click)="VerIn()" label="Ver producto" />
 
-  <div *ngFor="let item of qrCodeResult">
-    <ngx-scanner-qrcode #actionFile="scanner" [src]="item.url" [config]="config" (event)="onEvent($event)"></ngx-scanner-qrcode>
+    <div *ngFor="let item of qrCodeResult">
+      <ngx-scanner-qrcode #actionFile="scanner" [src]="item.url" [config]="config" (event)="onEvent($event)"></ngx-scanner-qrcode>
+    </div>
   </div>
-
 </div>
