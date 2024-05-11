@@ -1,1 +1,68 @@
-<p>products works!</p>
+<p-toast></p-toast>
+<p-toolbar>
+    <div class="p-toolbar-group-left">
+      <img src="assets/logo.png" alt="Logo" style="height: 40px;">
+    </div>
+    <div class="p-toolbar-group-right">
+      <button pButton label="Cerrar Sesión" icon="pi pi-power-off" class="p-button-danger mr-2"></button>
+    </div>
+</p-toolbar>
+
+<div style="margin-top: 0.1cm;"></div>
+
+<div class="card">
+    <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+            <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text"  placeholder="Buscar producto" />
+            </span>
+            &nbsp;
+            <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-success mr-2"></button>
+        </ng-template>
+
+        <ng-template pTemplate="right">
+            <button pButton pRipple label="Escánear" icon="pi pi-qrcode" class="p-button-info mr-2"></button>
+            <!-- <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload> -->
+            &nbsp;
+            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-help"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <div style="margin-top: 0.1cm;"></div>
+
+    <p-table #dt  [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" [tableStyle]="{'min-width': '75rem'}"
+         [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h5 class="m-0">Productos</h5>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="name" style="min-width:15rem">Producto <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="price">Stock <p-sortIcon field="price"></p-sortIcon></th>
+                <th pSortableColumn="category" style="min-width:10rem">Precio <p-sortIcon field="category"></p-sortIcon></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr>
+                <td>{{product.name}}</td>
+                <td>{{product.category}}</td>   
+                <td>{{product.category}}</td>      
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                En total hay  productos.
+            </div>
+        </ng-template>
+    </p-table>
+
+</div>
+

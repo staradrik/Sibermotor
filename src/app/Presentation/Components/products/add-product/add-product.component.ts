@@ -8,6 +8,8 @@ import { ToastModule } from 'primeng/toast';
 import { Product } from '../../../../Core/Services/product.service';
 import { ProductRepositoryService } from '../../../../Infrastructure/Repositories/productRepository.service';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { ToolbarModule } from 'primeng/toolbar';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
 
 @Component({
@@ -19,7 +21,9 @@ import { InputNumberModule } from 'primeng/inputnumber';
     FloatLabelModule,
     ButtonModule,
     ToastModule,
-    InputNumberModule
+    InputNumberModule,
+    ToolbarModule,
+    InputTextareaModule
   ],
   providers: [MessageService],
   templateUrl: './add-product.component.html',
