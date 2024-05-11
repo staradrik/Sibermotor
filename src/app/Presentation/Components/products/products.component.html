@@ -18,11 +18,11 @@
                 <input pInputText type="text"  placeholder="Buscar producto" />
             </span>
             &nbsp;
-            <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-success mr-2"></button>
+            <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-success mr-2" (click)="goAddProduct()"></button>
         </ng-template>
 
         <ng-template pTemplate="right">
-            <button pButton pRipple label="Escánear" icon="pi pi-qrcode" class="p-button-info mr-2"></button>
+            <button pButton pRipple label="Escánear" icon="pi pi-qrcode" class="p-button-info mr-2" (click)="goBarcode()" ></button>
             <!-- <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload> -->
             &nbsp;
             <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-help"></button>
@@ -31,36 +31,27 @@
 
     <div style="margin-top: 0.1cm;"></div>
 
-    <p-table #dt  [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" [tableStyle]="{'min-width': '75rem'}"
+    <p-table #dt [value]="products" [rows]="10" [paginator]="true" [tableStyle]="{'min-width': '75rem'}"
          [rowHover]="true" dataKey="id"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
-        <ng-template pTemplate="caption">
-            <div class="flex align-items-center justify-content-between">
-                <h5 class="m-0">Productos</h5>
-            </div>
-        </ng-template>
+        currentPageReportTemplate="Mostrando  del {first} al {last} de {totalRecords} productos" [showCurrentPageReport]="true">
+
         <ng-template pTemplate="header">
             <tr>
                 <th pSortableColumn="name" style="min-width:15rem">Producto <p-sortIcon field="name"></p-sortIcon></th>
-                <th pSortableColumn="price">Stock <p-sortIcon field="price"></p-sortIcon></th>
-                <th pSortableColumn="category" style="min-width:10rem">Precio <p-sortIcon field="category"></p-sortIcon></th>
-                <th></th>
+                <th pSortableColumn="stock">Stock <p-sortIcon field="stock"></p-sortIcon></th>
+                <th pSortableColumn="price" style="min-width:10rem">Precio <p-sortIcon field="price"></p-sortIcon></th>
+                <th>Detalle</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-product>
             <tr>
                 <td>{{product.name}}</td>
-                <td>{{product.category}}</td>   
-                <td>{{product.category}}</td>      
+                <td>{{product.stock}}</td>   
+                <td>{{product.price}}</td>      
                 <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"></button>
+                    <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-success mr-2"></button>
                 </td>
             </tr>
-        </ng-template>
-        <ng-template pTemplate="summary">
-            <div class="flex align-items-center justify-content-between">
-                En total hay  productos.
-            </div>
         </ng-template>
     </p-table>
 

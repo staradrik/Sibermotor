@@ -1,11 +1,11 @@
-<p-toast />
+<p-toast></p-toast>
 
 <p-toolbar>
   <div class="p-toolbar-group-left">
     <label for="productCode">Agregar producto</label>
   </div>
   <div class="p-toolbar-group-right">
-    <button pButton label="Cerrar Sesión" icon="pi pi-power-off" class="p-button-danger mr-2"></button>
+    <button pButton label="Regresar" icon="pi pi-sign-out" class="p-button-info mr-2" (click)="goProductsList()"></button>
   </div>
 </p-toolbar>
 
@@ -34,8 +34,11 @@
       <p-inputNumber inputId="stock" [(ngModel)]="product.stock" />
       <label for="username">Existencias del producto</label>
     </p-floatLabel>
-    <p-button label="Agregar" (onClick)="addProduct()" />
+    <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-success mr-2" (click)="addProduct()"></button>
   </div>
 </div>
+
+
+
 
 
