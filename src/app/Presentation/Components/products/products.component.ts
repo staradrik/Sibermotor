@@ -32,7 +32,6 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this.productService.getProducts().then((data)=>{
       this.products = data;
-      console.log(this.products)
     });
   }
 
@@ -42,6 +41,11 @@ export class ProductsComponent implements OnInit {
 
   goBarcode(){
     this.router.navigate([`/barcode`]);
+  }
+
+  goDeleteProduct(productCode:string){
+    this.productService.productCode = productCode;
+    this.router.navigate([`/product/delete`]);
   }
 
 }

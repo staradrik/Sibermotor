@@ -41,6 +41,7 @@
                 <th pSortableColumn="stock">Stock <p-sortIcon field="stock"></p-sortIcon></th>
                 <th pSortableColumn="price" style="min-width:10rem">Precio <p-sortIcon field="price"></p-sortIcon></th>
                 <th>Detalle</th>
+                <th>Eliminar</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-product>
@@ -50,6 +51,9 @@
                 <td>{{product.price}}</td>      
                 <td>
                     <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-success mr-2"></button>
+                </td>
+                <td>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2" (click)="goDeleteProduct(product.barcode)"></button>
                 </td>
             </tr>
         </ng-template>

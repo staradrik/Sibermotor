@@ -8,6 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { ProductRepositoryService } from '../../../Infrastructure/Repositories/productRepository.service';
 import { Router } from '@angular/router';
+import { ToolbarModule } from 'primeng/toolbar';
 
 @Component({
   selector: 'app-barcode',
@@ -18,7 +19,8 @@ import { Router } from '@angular/router';
     NgFor,
     ButtonModule,
     ToastModule,
-    InputTextModule
+    InputTextModule,
+    ToolbarModule
   ],
   providers: [MessageService],
   templateUrl: './barcode.component.html',
@@ -40,6 +42,9 @@ export class BarcodeComponent implements AfterViewInit{
   public percentage = 80;
   public quality = 100;
   public Product = "";
+  visibleB = true;
+  isLoading = false;
+  nameBarcode = "";
 
   constructor(private qrcode: NgxScannerQrcodeService, private messageService: MessageService,
     private productService: ProductRepositoryService, private router: Router,
@@ -47,19 +52,25 @@ export class BarcodeComponent implements AfterViewInit{
 
   ngAfterViewInit(): void {
     this.action.isReady.subscribe((res: any) => {
-      // this.handle(this.action, 'start');
+       this.handle(this.action, 'start');
     });
   }
 
   public onEvent(e: ScannerQRCodeResult[], action?: any): void {
     this.Product = e[0].value;
-    console.log(this.Product);
-    //agregar toast
-    this.messageService.add({severity:'success', summary:"Operacion exitosa", detail:"Codigo producto: " + this.Product});
+    if (this.isLoading)
+      return;
+    this.messageService.add({severity:'info', summary:"Operacion exitosa", detail:"Codigo producto: " + this.Product});
+    
+    this.VerIn()
   }
 
   public async VerIn(){
     // console.log(this.Product)
+    if (this.isLoading)
+      return;
+    //agregar toast
+    this.isLoading=true;
     //condicional para enviar a ver detalles
     if (this.Product == null){
       this.messageService.add({severity:'error', summary:"Error", detail:"No fue posible leerlo"});
@@ -68,13 +79,21 @@ export class BarcodeComponent implements AfterViewInit{
      await this.productService.getProduct(this.Product).then((data)=>{
       if (data.description.startsWith("Error: ")){
         this.messageService.add({severity:'error', summary:"Producto no encontrado", detail:data.description});
+        this.isLoading = false;
         return;
       }
       this.messageService.add({severity:'success', summary:"Producto encontrado", detail:"Producto: " + data.name});
+      this.visibleB = false;
       //enviar a ver detalles
-      this.router.navigate([`/product/detail/${data.barcode}`]);
+      this.nameBarcode = data.barcode;
+      this.isLoading = false;
      });
 
+  }
+
+  goDetailProduct(){
+    console.log("Hola")
+   // this.router.navigate([`/product/detail/${this.nameBarcode}`]);
   }
 
   public handle(action: any, fn: string): void {
@@ -95,10 +114,20 @@ export class BarcodeComponent implements AfterViewInit{
     action.download().subscribe(console.log, alert);
   }
 
+  eeSelects(files: any) {
+    this.qrcode.loadFiles(files, this.percentage, this.quality).subscribe((res: ScannerQRCodeSelectedFiles[]) => {
+      this.qrCodeResult = res;
+    });
+  }
+
   public onSelects(files: any) {
     this.qrcode.loadFiles(files, this.percentage, this.quality).subscribe((res: ScannerQRCodeSelectedFiles[]) => {
       this.qrCodeResult = res;
     });
+  }
+
+  goProductsList(){
+    this.router.navigate([`/products`]);
   }
 
 }

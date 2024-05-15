@@ -1,9 +1,24 @@
-<p-toast />
-<div style="display: flex; flex-direction: column; align-items: center;">
-  <label for="productCode">Código del producto:</label>
-  <p-floatLabel style="padding: 50px;">
-    <input pInputText id="username" [(ngModel)]="productCode" />
-    <label for="username">Id producto</label>
-  </p-floatLabel>
-  <p-button label="Eliminar" severity="danger" (onClick)="deleteProduct()" />
+<p-toast></p-toast>
+
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <label for="productCode">Eliminar producto</label>
+  </div>
+  <div class="p-toolbar-group-right">
+    <button pButton label="Regresar" icon="pi pi-sign-out" class="p-button-info mr-2" (click)="goProductsList()"></button>
+  </div>
+</p-toolbar>
+
+<div style="margin-top: 0.1cm;"></div>
+
+<div class="card">
+  <div style="display: flex; flex-direction: column; align-items: center;">
+    <p-floatLabel style="padding: 50px;">
+      <input pInputText id="username" [(ngModel)]="productCode" [disabled]="true"/>
+      <label for="username">Código del producto</label>
+    </p-floatLabel>
+    <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger mr-2" (click)="deleteProduct()"></button>
+  </div>
 </div>
+
+
