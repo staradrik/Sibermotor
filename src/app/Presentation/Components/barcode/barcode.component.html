@@ -1,6 +1,15 @@
-<p-toast />
+<p-toast></p-toast>
+
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <label for="productCode">Escánear producto</label>
+  </div>
+  <div class="p-toolbar-group-right">
+    <button pButton label="Regresar" icon="pi pi-sign-out" class="p-button-info mr-2" (click)="goProductsList()"></button>
+  </div>
+</p-toolbar>
+
 <div class="container">
-  <h1> Agregar producto </h1>
 
   <!-- ngx-scanner-qrcode -->
   <ngx-scanner-qrcode #action="scanner" [config]="config" (event)="onEvent($event, action)"></ngx-scanner-qrcode>
@@ -21,11 +30,17 @@
       <input #file type="file" pInputText (change)="onSelects(file.files)" [multiple]="'multiple'" [accept]="'.jpg, .png, .gif, .jpeg'"/>
     </div>
 
-    <div style="padding: 10px;"></div>
-    <p-button icon="pi pi-arrow-right" iconPos="right" (click)="VerIn()" label="Ver producto" />
-
-    <div *ngFor="let item of qrCodeResult">
-      <ngx-scanner-qrcode #actionFile="scanner" [src]="item.url" [config]="config" (event)="onEvent($event)"></ngx-scanner-qrcode>
+    <div style="padding: 10px;">
+      <button [disabled]="visibleB" pButton label="Ver detalle" icon="pi pi-calculator" class="p-button-help mr-2" (click)="goDetailProduct()"></button>
     </div>
+    
+
+    <div style="visibility:hidden">
+      <div *ngFor="let item of qrCodeResult">
+        <ngx-scanner-qrcode #actionFile="scanner" [src]="item.url" [config]="config" (event)="onEvent($event)"></ngx-scanner-qrcode>
+      </div>
+    </div>
+    
+
   </div>
 </div>

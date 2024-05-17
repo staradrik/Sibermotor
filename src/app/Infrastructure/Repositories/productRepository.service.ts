@@ -7,6 +7,8 @@ import { ProductApiService } from '../Api/product-api.service';
 })
 export class ProductRepositoryService implements productService{
 
+  productCode:string="";
+
   constructor(private productApiService: ProductApiService) { }
   addProduct(product: Product): Promise<string> {
     return this.productApiService.addProduct(product);

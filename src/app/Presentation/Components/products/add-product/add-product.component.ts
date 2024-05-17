@@ -8,6 +8,9 @@ import { ToastModule } from 'primeng/toast';
 import { Product } from '../../../../Core/Services/product.service';
 import { ProductRepositoryService } from '../../../../Infrastructure/Repositories/productRepository.service';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { ToolbarModule } from 'primeng/toolbar';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,14 +22,16 @@ import { InputNumberModule } from 'primeng/inputnumber';
     FloatLabelModule,
     ButtonModule,
     ToastModule,
-    InputNumberModule
+    InputNumberModule,
+    ToolbarModule,
+    InputTextareaModule
   ],
   providers: [MessageService],
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.css'
 })
 export class AddProductComponent {
-  constructor(private productService: ProductRepositoryService, private messageService: MessageService){}
+  constructor(private productService: ProductRepositoryService, private messageService: MessageService,private router: Router){}
   product: Product = {
     name: '',
     description: '',
@@ -34,15 +39,20 @@ export class AddProductComponent {
     price: 0,
     barcode: ''
   };
-  async addProduct(){
-    await this.productService.addProduct(this.product).then((data)=>{
+  
+  addProduct(){
+    this.productService.addProduct(this.product).then((data)=>{
       if (data.startsWith("Error: ")){
         this.messageService.add({severity:'error', summary:"Error", detail:data});
         return;
       }
 
       this.messageService.add({severity:'success', summary:"Operacion exitosa", detail:data});
-      console.log(data);
+      setTimeout( ()=> { this.router.navigate(['/products'])}, 3000);
     });
+  }
+
+  goProductsList(){
+    this.router.navigate([`/products`]);
   }
 }
