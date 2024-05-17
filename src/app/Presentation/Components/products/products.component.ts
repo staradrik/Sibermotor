@@ -53,7 +53,8 @@ export class ProductsComponent implements OnInit {
         return;
       }
       this.messageService.add({severity:'success', summary:"Producto encontrado: ", detail:data.name});
-      this.router.navigate([`/product/detail/${data.barcode}`]);
+      this.productService.productComplet = data;
+      setTimeout( ()=> { this.router.navigate(['/product/detail'])}, 3000);
     })
   }
 
@@ -65,6 +66,19 @@ export class ProductsComponent implements OnInit {
   goDeleteProduct(productCode:string){
     this.productService.productCode = productCode;
     this.router.navigate([`/product/delete`]);
+  }
+
+  goDetailProduct(productCode:string){
+    this.productService.getProduct(productCode).then((data:Product)=>{
+
+      if (data.description.startsWith("Error: ")){
+        this.messageService.add({severity:'error', summary:"Error", detail:data.description});
+        return;
+      }
+      this.messageService.add({severity:'success', summary:"Producto encontrado: ", detail:data.name});
+      this.productService.productComplet = data;
+      setTimeout( ()=> { this.router.navigate(['/product/detail'])}, 3000);
+    })
   }
 
 }

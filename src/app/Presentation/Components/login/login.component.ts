@@ -8,6 +8,7 @@ import { ToastModule } from 'primeng/toast';
 import { Router } from '@angular/router';
 import { Role, User } from '../../../Core/Services/auth.service';
 import { AuthRepositoryService } from '../../../Infrastructure/Repositories/authRepository.service';
+import { ToolbarModule } from 'primeng/toolbar';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ import { AuthRepositoryService } from '../../../Infrastructure/Repositories/auth
     FormsModule,
     ButtonModule,
     ToastModule,
+    ToolbarModule
   ],
   providers: [MessageService],
   templateUrl: './login.component.html',

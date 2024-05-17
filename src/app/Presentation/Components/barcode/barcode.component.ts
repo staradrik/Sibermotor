@@ -86,14 +86,14 @@ export class BarcodeComponent implements AfterViewInit{
       this.visibleB = false;
       //enviar a ver detalles
       this.nameBarcode = data.barcode;
+      this.productService.productComplet = data;
       this.isLoading = false;
      });
 
   }
 
   goDetailProduct(){
-    console.log("Hola")
-   // this.router.navigate([`/product/detail/${this.nameBarcode}`]);
+    this.router.navigate(['/product/detail'])
   }
 
   public handle(action: any, fn: string): void {

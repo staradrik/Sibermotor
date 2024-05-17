@@ -1,10 +1,30 @@
 <p-toast></p-toast>
-<p-floatLabel style="padding: 20px;">
-    <input pInputText type="text" id="user" [(ngModel)]="user.user" />
-    <label for="username">Nombre usuario</label>
-  </p-floatLabel>
-  <p-floatLabel style="padding: 20px;">
-    <input pInputText type="password" id="user" [(ngModel)]="user.password" />
-    <label for="username">Contraseña</label>
-  </p-floatLabel>
-  <button pButton pRipple label="Ingresar" icon="pi pi-user" class="p-button-success mr-2" (click)="login()"></button>
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <label for="productCode">Bienvenido a Sibermotor, inicia sesión</label>
+  </div>
+  <div class="p-toolbar-group-right">
+    <img src="assets/logo.png" alt="Logo" style="height: 40px;">
+  </div>
+</p-toolbar>
+
+<div style="margin-top: 0.1cm;"></div>
+
+<div class="card">
+  <div style="display: flex; flex-direction: column; align-items: center;">
+    <div style="margin-top: 0.1cm;"></div>
+    <p-floatLabel style="padding: 20px;">
+      <input pInputText type="text" id="user" [(ngModel)]="user.user" />
+      <label for="username">Nombre usuario</label>
+    </p-floatLabel>
+    <p-floatLabel style="padding: 20px;">
+      <input pInputText type="password" id="user" [(ngModel)]="user.password" />
+      <label for="username">Contraseña</label>
+    </p-floatLabel>
+    <button pButton pRipple label="Ingresar" icon="pi pi-sign-in" class="p-button-success mr-2" (click)="login()"></button>
+  </div>
+</div>
+
+
+
+

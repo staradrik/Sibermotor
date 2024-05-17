@@ -4,6 +4,7 @@ import { AddProductComponent } from './Presentation/Components/products/add-prod
 import { BarcodeComponent } from './Presentation/Components/barcode/barcode.component';
 import { ProductsComponent } from './Presentation/Components/products/products.component';
 import { LoginComponent } from './Presentation/Components/login/login.component';
+import { DetailProductComponent } from './Presentation/Components/products/detail-product/detail-product.component';
 
 export const routes: Routes = [
   {
@@ -25,5 +26,9 @@ export const routes: Routes = [
   {
     path: 'barcode',
     component: BarcodeComponent
+  },
+  {
+    path: 'product/detail',
+    component: DetailProductComponent
   }
 ];

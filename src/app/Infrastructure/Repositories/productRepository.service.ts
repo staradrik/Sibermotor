@@ -8,6 +8,7 @@ import { ProductApiService } from '../Api/product-api.service';
 export class ProductRepositoryService implements productService{
 
   productCode:string="";
+  productComplet: any;
 
   constructor(private productApiService: ProductApiService) { }
   addProduct(product: Product): Promise<string> {

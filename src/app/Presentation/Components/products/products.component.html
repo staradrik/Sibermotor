@@ -51,7 +51,7 @@
                 <td>{{product.stock}}</td>   
                 <td>{{product.price}}</td>      
                 <td>
-                    <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-success mr-2"></button>
+                    <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-success mr-2" (click)="goDetailProduct(product.barcode)"></button>
                 </td>
                 <td>
                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2" (click)="goDeleteProduct(product.barcode)"></button>

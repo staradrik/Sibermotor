@@ -1,0 +1,50 @@
+<p-toast></p-toast>
+
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <label for="productCode">Detalle del producto</label>
+  </div>
+  <div class="p-toolbar-group-right">
+    <button pButton label="Regresar" icon="pi pi-sign-out" class="p-button-info mr-2" (click)="goProductsList()"></button>
+  </div>
+</p-toolbar>
+
+<div style="margin-top: 1cm;"></div>
+
+<div class="p-fluid grid">
+  <div class="field col-12 md:col-4">
+      <span class="p-float-label">
+          <input type="text" id="inputtext" pInputText [(ngModel)]="productComplet.name"> 
+          <label for="inputtext">Producto</label>
+      </span>
+  </div>
+  <div style="margin-top: 0.8cm;"></div>
+  <div class="field col-12 md:col-4">
+    <span class="p-float-label">
+        <input type="text" id="inputtext" pInputText [(ngModel)]="productComplet.description"> 
+        <label for="inputtext">Descripción</label>
+    </span>
+  </div>
+  <div style="margin-top: 0.8cm;"></div>
+  <div class="field col-12 md:col-4">
+    <span class="p-float-label">
+        <input type="text" id="inputtext" pInputText [(ngModel)]="productComplet.barcode"> 
+        <label for="inputtext">Código</label>
+    </span>
+  </div>
+  <div style="margin-top: 0.8cm;"></div>
+  <div class="field col-12 md:col-4">
+    <span class="p-float-label">
+        <input type="text" id="inputtext" pInputText [(ngModel)]="productComplet.stock"> 
+        <label for="inputtext">Stock</label>
+    </span>
+  </div>
+  <div style="margin-top: 0.8cm;"></div>
+  <div class="field col-12 md:col-4">
+    <span class="p-float-label">
+        <input type="text" id="inputtext" pInputText [(ngModel)]="productComplet.price"> 
+        <label for="inputtext">Precio</label>
+    </span>
+  </div>
+  
+</div>
