@@ -8,7 +8,7 @@ import { AuthApiService } from '../Api/auth-api.service';
 export class AuthRepositoryService implements AuthService{
 
   constructor(private authApiService:AuthApiService) { }
-  login(user: string, password: string): User {
+  login(user: string, password: string): Promise<User> {
     return this.authApiService.login(user, password);
   }
   logout(): void {

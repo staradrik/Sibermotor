@@ -3,8 +3,13 @@ import { DeleteProductComponent } from './Presentation/Components/products/delet
 import { AddProductComponent } from './Presentation/Components/products/add-product/add-product.component';
 import { BarcodeComponent } from './Presentation/Components/barcode/barcode.component';
 import { ProductsComponent } from './Presentation/Components/products/products.component';
+import { LoginComponent } from './Presentation/Components/login/login.component';
 
 export const routes: Routes = [
+  {
+    path: '',
+    component: LoginComponent
+  },
   {
     path: 'products',
     component: ProductsComponent
