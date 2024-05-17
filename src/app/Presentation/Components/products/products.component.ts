@@ -10,6 +10,7 @@ import { ProductRepositoryService } from '../../../Infrastructure/Repositories/p
 import { Product } from '../../../Core/Services/product.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ReportRepositoryService } from '../../../Infrastructure/Repositories/report.service';
 @Component({
   selector: 'app-products',
   standalone: true,
@@ -27,7 +28,9 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './products.component.css'
 })
 export class ProductsComponent implements OnInit {
-  constructor(private productService: ProductRepositoryService, private messageService: MessageService, private router: Router){}
+  constructor(private productService: ProductRepositoryService, private messageService: MessageService, private router: Router,
+    private reportRepositoryService: ReportRepositoryService
+  ){}
 
   products:Product[] = [];
   searchBox: string = "";
@@ -46,6 +49,10 @@ export class ProductsComponent implements OnInit {
     this.router.navigate([`/barcode`]);
   }
 
+  public saveDataInExcel(): void {
+    this.reportRepositoryService.saveDataInCSV(this.products,"Export")
+  }
+
   searchProduct(){
     this.productService.getProduct(this.searchBox).then((data: Product)=> {
       if (data.description.startsWith("Error: ")){
@@ -62,7 +69,7 @@ export class ProductsComponent implements OnInit {
       console.log("logout")
       this.router.navigate([``]);
     }
-    
+
   goDeleteProduct(productCode:string){
     this.productService.productCode = productCode;
     this.router.navigate([`/product/delete`]);
