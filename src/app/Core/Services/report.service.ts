@@ -1,9 +1,3 @@
-import { Injectable } from '@angular/core';
-
-@Injectable({
-  providedIn: 'root'
-})
-export class ReportService {
-
-  constructor() { }
+export interface ReportService {
+  saveDataInCSV(data: any[], fileName: string): void;
 }
