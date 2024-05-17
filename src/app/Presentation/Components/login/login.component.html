@@ -1,1 +1,10 @@
-<p>login works!</p>
+<p-toast></p-toast>
+<p-floatLabel style="padding: 20px;">
+    <input pInputText type="text" id="user" [(ngModel)]="user.user" />
+    <label for="username">Nombre usuario</label>
+  </p-floatLabel>
+  <p-floatLabel style="padding: 20px;">
+    <input pInputText type="password" id="user" [(ngModel)]="user.password" />
+    <label for="username">Contraseña</label>
+  </p-floatLabel>
+  <button pButton pRipple label="Ingresar" icon="pi pi-user" class="p-button-success mr-2" (click)="login()"></button>

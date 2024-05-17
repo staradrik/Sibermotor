@@ -4,7 +4,7 @@
       <img src="assets/logo.png" alt="Logo" style="height: 40px;">
     </div>
     <div class="p-toolbar-group-right">
-      <button pButton label="Cerrar Sesión" icon="pi pi-power-off" class="p-button-danger mr-2"></button>
+      <button pButton label="Cerrar Sesión" icon="pi pi-power-off" class="p-button-danger mr-2" (click)="logout()"></button>
     </div>
 </p-toolbar>
 
@@ -15,7 +15,8 @@
         <ng-template pTemplate="left">
             <span class="p-input-icon-left ml-auto">
                 <i class="pi pi-search"></i>
-                <input pInputText type="text"  placeholder="Buscar producto" />
+                <input pInputText type="text"  placeholder="Buscar producto" [(ngModel)]="searchBox" 
+                (keyup.enter)="searchProduct()"/>
             </span>
             &nbsp;
             <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-success mr-2" (click)="goAddProduct()"></button>

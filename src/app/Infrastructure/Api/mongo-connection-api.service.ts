@@ -24,7 +24,7 @@ export class MongoConnectionApiService implements MongoConnectionService {
     // Authenticate the user
     return await this.app.logIn(credentials);
   }
-  async login(user: string, password: string) {
+  async login(user: string, password: string): Promise<User> {
     await this.initialiseMongoConnection();
     const mongo = this.app.currentUser?.mongoClient(this.serviceName);
     const collection = mongo?.db(this.dbName).collection(this.collUser);
@@ -35,15 +35,26 @@ export class MongoConnectionApiService implements MongoConnectionService {
       findResult = await collection!.findOne(
         { name: user, password: password},
       );
-
       if(!findResult)
         throw new Error('El usuario no existe');
 
+      const roleUser: Role  = 
+        findResult.role == "Usuario" ? Role.Usuario :
+        findResult.role == "Gerente" ? Role.Gerente :
+        Role.Administrador;
+
+      this.user = {
+        user: findResult.name,
+        password: findResult.password,
+        role: roleUser
+      }
+      console.log(this.user)
+      return this.user;
+
     } catch(err: any) {
-      // return { error: err.message };
-      console.log(err.message);
+      this.user.role = Role.Error
+      return this.user;
     }
-    // return { result: findResult };
   }
   async addProduct(product: Product): Promise<string> {
     this.initialiseMongoConnection();
