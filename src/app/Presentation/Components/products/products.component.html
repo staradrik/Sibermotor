@@ -15,7 +15,7 @@
         <ng-template pTemplate="left">
             <span class="p-input-icon-left ml-auto">
                 <i class="pi pi-search"></i>
-                <input pInputText type="text"  placeholder="Buscar producto" [(ngModel)]="searchBox" 
+                <input pInputText type="text"  placeholder="Buscar producto" [(ngModel)]="searchBox"
                 (keyup.enter)="searchProduct()"/>
             </span>
             &nbsp;
@@ -26,7 +26,7 @@
             <button pButton pRipple label="Escánear" icon="pi pi-qrcode" class="p-button-info mr-2" (click)="goBarcode()" ></button>
             <!-- <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload> -->
             &nbsp;
-            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-help"></button>
+            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-help" (click)="saveDataInExcel()"></button>
         </ng-template>
     </p-toolbar>
 
@@ -48,8 +48,8 @@
         <ng-template pTemplate="body" let-product>
             <tr>
                 <td>{{product.name}}</td>
-                <td>{{product.stock}}</td>   
-                <td>{{product.price}}</td>      
+                <td>{{product.stock}}</td>
+                <td>{{product.price}}</td>
                 <td>
                     <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-success mr-2"></button>
                 </td>
